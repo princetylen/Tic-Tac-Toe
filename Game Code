@@ -1,0 +1,77 @@
+class TicTacToe:
+    """
+    Class to represent a Tic Tac Toe game.
+
+    Attributes:
+    - board: list
+        Represents the Tic Tac Toe board with 9 positions.
+    - current_player: str
+        Represents the current player ('X' or 'O').
+    """
+
+    def __init__(self):
+        """
+        Constructor to initialize the Tic Tac Toe game board and set the starting player.
+        """
+
+        # Initializing the board with empty positions
+        self.board = [' ' for _ in range(9)]
+        # Setting 'X' as the starting player
+        self.current_player = 'X'
+
+    def print_board(self):
+        """
+        Function to print the current state of the Tic Tac Toe board.
+        """
+
+        print("-------------")
+        for i in range(3):
+            print(f"| {self.board[i*3]} | {self.board[i*3 + 1]} | {self.board[i*3 + 2]} |")
+            print("-------------")
+
+    def make_move(self, position):
+        """
+        Function to make a move on the board at a specified position.
+
+        Parameters:
+        - position: int
+            The position (1-9) where the player wants to place their mark.
+
+        Returns:
+        - bool:
+            Returns True if the move was successful, False if the position is already taken.
+        """
+
+        if self.board[position - 1] == ' ':
+            self.board[position - 1] = self.current_player
+            return True
+        else:
+            return False
+
+    def switch_player(self):
+        """
+        Function to switch the current player after each move.
+        """
+
+        self.current_player = 'O' if self.current_player == 'X' else 'X'
+
+# Example of using the TicTacToe class to play the game:
+
+# Initialize the game
+game = TicTacToe()
+
+# Play the game
+game.print_board()
+while ' ' in game.board:
+    position = int(input(f"Player {game.current_player}, enter your move (1-9): "))
+    if game.make_move(position):
+        game.print_board()
+        if game.current_player == 'X':
+            print("Player O's turn")
+        else:
+            print("Player X's turn")
+        game.switch_player()
+    else:
+        print("Position already taken, try again.")
+
+print("Game Over!")
